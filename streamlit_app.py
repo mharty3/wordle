@@ -55,7 +55,7 @@ Enter the game's response using
   * "y" to indicate 🟨
   * "b" to indicate ⬛
 
-For example: if you got ⬛🟨⬛🟩🟩 enter bybbg""")
+For example: if you got ⬛🟨⬛🟩🟩 enter bybgg""")
 
 response1 = st.text_input("Enter the game's response")
 if response1:
