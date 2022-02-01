@@ -47,6 +47,7 @@ Michael Harty
 
 guess1 = st.text_input('what was your first guess?')
 if guess1:
+    guess1 = guess1.lower().strip()
     assert len(guess1) == 5
 
 st.markdown(body="""
@@ -59,6 +60,7 @@ For example: if you got ⬛🟨⬛🟩🟩 enter bybgg""")
 
 response1 = st.text_input("Enter the game's response")
 if response1:
+    response1 = response1.lower().strip()
     assert len(response1) == 5
     assert set(response1).issubset(set('byg'))
 
