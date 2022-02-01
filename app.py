@@ -19,7 +19,7 @@ def parse_word(guess, response):
         if r == 'g':
             right_spot[i] = c
     return cant_contain, wrong_spot, right_spot
-    
+
 
 def filter_words(wordlist, rules):
     cant_contain = rules[0]
@@ -40,12 +40,20 @@ def filter_words(wordlist, rules):
 
 
 
-st.title('Wordle')
-guess1 = st.text_input('what was your first guess')
+st.title('Wordle Hints')
+st.sidebar.write('Michael Harty')
+guess1 = st.text_input('what was your first guess?')
 if guess1:
     assert len(guess1) == 5
 
-response1 = st.text_input('what did it say b for black, y for yellow or g for green')
+st.markdown(body="""
+Enter the game's response using
+  * "g" to indicate 🟩
+  * "y" to indicate 🟨
+  * "b" to indicate ⬛
+
+For example: if you got ⬛🟨⬛🟩🟩 enter bybbg""")
+response1 = st.text_input("Enter the game's response")
 if response1:
     assert len(response1) == 5
     assert set(response1).issubset(set('byg'))
