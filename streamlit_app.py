@@ -25,6 +25,7 @@ def filter_words(wordlist, rules):
     cant_contain = rules[0]
     wrong_spot = rules[1]
     right_spot = rules[2]
+
     # filter out blacks
     wordlist = [word for word in wordlist if not any(char in word for char in cant_contain)]
     
@@ -32,8 +33,7 @@ def filter_words(wordlist, rules):
         for i in indexes:
             wordlist = [w for w in wordlist if char in w and list(w)[i] != char]
     
-    for idx, char in right_spot.items():
-        wordlist = [word for word in wordlist if list(word)[idx] == char]
+    wordlist = [word for word in wordlist if all(list(word)[idx] == char for idx, char in right_spot.items())]
     
     return wordlist
 
@@ -70,8 +70,34 @@ st.write(response1.translate(table))
 
 
 wordlist = open('sorted_words.txt').readlines()
-rules = parse_word(guess1, response1)
+rules1 = parse_word(guess1, response1)
 if guess1 and response1:
-    st.write('## Some good next guesses:')
-    for word in filter_words(wordlist, rules)[:5]:
+    st.write('## Some good second guesses:')
+    wordlist = filter_words(wordlist, rules1)
+    for word in wordlist[:5]:
+        st.write(word)
+
+
+    guess2 = st.text_input('what was your second guess?')
+    if guess2:
+        guess2 = guess2.lower().strip()
+        assert len(guess2) == 5
+        
+    response2 = st.text_input("Enter the game's second response")
+    if response2:
+        response2 = response2.lower().strip()
+        assert len(response2) == 5
+        assert set(response2).issubset(set('byg'))
+        st.write(response1.translate(table))
+        st.write(response2.translate(table))
+        
+
+if response1 and guess2 and response2:
+    rules2 = parse_word(guess2, response2)
+    st.write(rules2)
+    st.write(wordlist)
+    st.write('## Some good third guesses:')
+    wordlist = filter_words(wordlist, rules2)
+    st.write(wordlist)
+    for word in wordlist[:5]:
         st.write(word)
