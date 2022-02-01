@@ -33,15 +33,18 @@ def filter_words(wordlist, rules):
             wordlist = [w for w in wordlist if char in w and list(w)[i] != char]
     
     for idx, char in right_spot.items():
-        print(idx, char)
         wordlist = [word for word in wordlist if list(word)[idx] == char]
     
     return wordlist
 
 
-
+st.set_page_config(page_title='🟩🟩🟩🟩🟩', initial_sidebar_state='collapsed')
 st.title('Wordle Hints')
-st.sidebar.write('Michael Harty')
+st.sidebar.markdown("""
+Michael Harty
+
+[Code Repo](https://github.com/mharty3/wordle/tree/master)""")
+
 guess1 = st.text_input('what was your first guess?')
 if guess1:
     assert len(guess1) == 5
@@ -53,6 +56,7 @@ Enter the game's response using
   * "b" to indicate ⬛
 
 For example: if you got ⬛🟨⬛🟩🟩 enter bybbg""")
+
 response1 = st.text_input("Enter the game's response")
 if response1:
     assert len(response1) == 5
@@ -65,7 +69,7 @@ st.write(response1.translate(table))
 
 wordlist = open('sorted_words.txt').readlines()
 rules = parse_word(guess1, response1)
-if response1:
+if guess1 and response1:
     st.write('## Some good next guesses:')
     for word in filter_words(wordlist, rules)[:5]:
         st.write(word)
