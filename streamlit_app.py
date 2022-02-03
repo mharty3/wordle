@@ -96,6 +96,5 @@ if response1 and guess2 and response2:
     rules2 = parse_word(guess2, response2)
     st.write('## Some good third guesses:')
     wordlist = filter_words(wordlist, rules2)
-    st.write(wordlist)
     for word in wordlist[:5]:
         st.write(word)
