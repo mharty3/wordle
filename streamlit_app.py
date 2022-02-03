@@ -104,6 +104,7 @@ if response1:
 
     if not set(response1).issubset(set('byg')):
         st.warning('Response can only contain Y, G, or B')
+
 # write emojis
 st.write(response1.translate(table))
 
@@ -126,8 +127,12 @@ if guess1 and response1:
     response2 = st.text_input("Enter the game's second response")
     if response2:
         response2 = response2.lower().strip()
-        assert len(response2) == 5
-        assert set(response2).issubset(set('byg'))
+        if not len(response2) == 5:
+            st.warning('Response must be 5 letters long')
+
+        if not set(response2).issubset(set('byg')):
+            st.warning('Response can only contain Y, G, or B')
+
 
         # write emojis
         st.write(response1.translate(table))
@@ -152,8 +157,11 @@ if guess1 and response1:
         response3 = st.text_input("Enter the game's third response")
         if response3:
             response3 = response3.lower().strip()
-            assert len(response3) == 5
-            assert set(response3).issubset(set('byg'))
+            if not len(response3) == 5:
+                st.warning('Response must be 5 letters long')
+
+            if not set(response3).issubset(set('byg')):
+                st.warning('Response can only contain Y, G, or B')
 
             # write emojis
             st.write(response1.translate(table))
@@ -178,8 +186,11 @@ if guess1 and response1:
             response4 = st.text_input("Enter the game's fourth response")
             if response4:
                 response4 = response4.lower().strip()
-                assert len(response4) == 5
-                assert set(response4).issubset(set('byg'))
+                if not len(response4) == 5:
+                    st.warning('Response must be 5 letters long')
+
+                if not set(response4).issubset(set('byg')):
+                    st.warning('Response can only contain Y, G, or B')
 
                 # write emojis
                 st.write(response1.translate(table))
