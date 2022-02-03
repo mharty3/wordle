@@ -1,5 +1,5 @@
-from numpy import can_cast
 import streamlit as st
+from time import sleep
 
 
 def parse_word(guess, response):
@@ -104,12 +104,9 @@ if response1:
 
     if not set(response1).issubset(set('byg')):
         st.warning('Response can only contain Y, G, or B')
-
-
 # write emojis
 st.write(response1.translate(table))
 
-# guess 2
 wordlist = open('sorted_words.txt').readlines()
 rules1 = parse_word(guess1, response1)
 if guess1 and response1:
@@ -118,7 +115,8 @@ if guess1 and response1:
     for word in wordlist[:5]:
         st.write(word)
 
-
+# guess 2
+if guess1 and response1:
     guess2 = st.text_input('what was your second guess?')
     if guess2:
         guess2 = guess2.lower().strip()
@@ -136,9 +134,65 @@ if guess1 and response1:
         st.write(response2.translate(table))
         
 
-    if response2:
+    if guess2 and response2:
         rules2 = parse_word(guess2, response2)
         st.write('## Some good third guesses:')
         wordlist = filter_words(wordlist, rules2)
         for word in wordlist[:5]:
             st.write(word)
+
+    # guess3
+    if guess1 and guess2 and response2:
+        guess3 = st.text_input('what was your third guess?')
+        if guess3:
+            guess3 = guess3.lower().strip()
+            if not len(guess3) == 5:
+                st.warning('Guess must be 5 letters long')
+                
+        response3 = st.text_input("Enter the game's third response")
+        if response3:
+            response3 = response3.lower().strip()
+            assert len(response3) == 5
+            assert set(response3).issubset(set('byg'))
+
+            # write emojis
+            st.write(response1.translate(table))
+            st.write(response2.translate(table))
+            st.write(response3.translate(table))
+            
+        if guess3 and response3:
+            rules3 = parse_word(guess3, response3)
+            st.write('## Some good fourth guesses:')
+            wordlist = filter_words(wordlist, rules3)
+            for word in wordlist[:5]:
+                st.write(word)
+
+        # guess4
+        if guess1 and guess2 and guess3 and response3:
+            guess4 = st.text_input('what was your fourth guess?')
+            if guess4:
+                guess4 = guess4.lower().strip()
+                if not len(guess4) == 5:
+                    st.warning('Guess must be 5 letters long')
+                    
+            response4 = st.text_input("Enter the game's fourth response")
+            if response4:
+                response4 = response4.lower().strip()
+                assert len(response4) == 5
+                assert set(response4).issubset(set('byg'))
+
+                # write emojis
+                st.write(response1.translate(table))
+                st.write(response2.translate(table))
+                st.write(response4.translate(table))
+                
+            if guess4 and response4:
+                rules4 = parse_word(guess4, response4)
+                st.write('## Some good fifth guesses:')
+                wordlist = filter_words(wordlist, rules4)
+                for word in wordlist[:5]:
+                    st.write(word)
+
+                sleep(3)
+                st.markdown("### I think you can take it from here 😏")
+        
